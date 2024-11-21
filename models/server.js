@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors"
 import router from "../routes/usuarios.js";
 import routerAuth from "../routes/auth.js";
 import routerCat from "../routes/categorias.js";
@@ -31,6 +32,7 @@ class Server {
     this.app.use(this.buscarPath, routerSearch);
   }
   middlewares() {
+    this.app.use(cors())
     this.app.use(express.json());
     
   }
