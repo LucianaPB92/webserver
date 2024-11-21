@@ -14,6 +14,18 @@ const getUsers = async (req = request, res = response) => {
   });
 };
 
+//obtener usuario por id
+const getUser = async (req, res) => {
+  const { id } = req.params;
+
+  const usuario = await Usuario.findById(id);
+
+  res.json({
+    usuario,
+  });
+};
+
+
 const postUsers = async (req = request, res = response) => {
   const datos = req.body;
   const { nombre, email, password, rol } = datos;
@@ -107,4 +119,4 @@ const deleteUsers = async (req = request, res = response) => {
     usuarioBorrado,
   });
 };
-export { getUsers, postUsers, putUsers, deleteUsers };
+export { getUsers, postUsers, putUsers, deleteUsers, getUser };

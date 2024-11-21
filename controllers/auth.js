@@ -1,6 +1,7 @@
 import Usuario from "../models/usuario.js";
 import bcrypt from "bcryptjs"
 import { generarJWT } from "../helpers/genera-jwt.js";
+
 const login = async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -30,6 +31,7 @@ const login = async (req, res) => {
 
     res.status(202).json({
         msg:"Login ok",
+        uid: usuario.id,
         token
     })
   } catch (error) {

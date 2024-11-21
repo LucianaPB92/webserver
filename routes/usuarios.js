@@ -8,6 +8,7 @@ import {
   postUsers,
   putUsers,
   deleteUsers,
+  getUser,
 } from "../controllers/usuarios.js";
 import {
   emailExiste,
@@ -23,6 +24,18 @@ router.get("/",[
   validarJWT,
   esAdminRole
 ], getUsers);
+
+//para cargar el perfil del usuario
+router.get(
+  "/:id",
+  [
+    validarJWT,
+    check("id", "No es un id válido").isMongoId(),
+    check("id").custom(existeUsuarioPorId),
+    validarCampos,
+  ],
+  getUser
+);
 
 router.post(
   "/",
