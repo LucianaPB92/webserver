@@ -50,7 +50,7 @@ router.post(
     ),
     check("email", "El email no es valido").isEmail(),
     check("email").custom(emailExiste),
-    check("rol").custom(rolValido),
+    check("rol").optional().custom(rolValido),
     validarCampos,
   ],
   postUsers
