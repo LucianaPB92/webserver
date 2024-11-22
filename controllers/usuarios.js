@@ -5,8 +5,10 @@ import bcrypt from "bcryptjs";
 
 const getUsers = async (req = request, res = response) => {
   //   res.send("Petición GET");
-  const { limite=5, desde=0 } = req.query;
-  const usuarios = await Usuario.find({ estado: true }).limit(limite).skip(desde);
+  const { limite = 5, desde = 0 } = req.query;
+  const usuarios = await Usuario.find({ estado: true })
+    .limit(limite)
+    .skip(desde);
   const total = await Usuario.countDocuments({ estado: true });
   res.json({
     total,
@@ -25,11 +27,11 @@ const getUser = async (req, res) => {
   });
 };
 
-
 const postUsers = async (req = request, res = response) => {
   const datos = req.body;
   const { nombre, email, password, rol } = datos;
 
+  const rolFinal = rol || undefined;
   //validar errores
 
   //obtengo los posibles errores que parten de la req la cual se crea a partir de los checks
@@ -41,7 +43,12 @@ const postUsers = async (req = request, res = response) => {
   */
   //---------------------------------------------------------
 
-  const usuario = new Usuario({ nombre, email, password, rol });
+  const usuario = new Usuario({ 
+    nombre, 
+    email, 
+    password, 
+    rol:rolFinal
+   });
 
   //verifico email
   // const existeEmail = await Usuario.findOne({ email });
