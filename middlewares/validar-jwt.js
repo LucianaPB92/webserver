@@ -6,9 +6,11 @@ const validarJWT = async (req, res, next) => {
   const token = req.header("x-token");
   //si no hay token devolver un mensaje y detener el proceso
   if (!token) {
-    return res.status(401).json({
-      msg: "No hay token en la petición",
-    });
+    req.usuario = null;
+    return next();
+    // return res.status(401).json({
+    //   msg: "No hay token en la petición",
+    // });
   }
   //validar token
   try {
