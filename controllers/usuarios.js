@@ -58,6 +58,24 @@ await usuario.save()
 
 }
 
+
+
+const putUsers = async (req, res)=>{
+    
+  const {id}=req.params;
+ 
+ const {password,_id, email,...resto}=req.body;
+ 
+ const salt = bcrypt.genSaltSync()
+ resto.password = bcrypt.hashSync(password, salt)
+ 
+ const usuario = await Usuario.findByIdAndUpdate(id, resto, {new:true})
+ 
+ res.status(200).json({
+     message: "Usuario actualizado", usuario
+ })
+ }
+ 
 const deleteUsers = async (req = request, res = response) => {
   const { id } = req.params;
   //borrado fisico
