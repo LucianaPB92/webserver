@@ -27,81 +27,36 @@ const getUser = async (req, res) => {
   });
 };
 
-const postUsers = async (req = request, res = response) => {
-  const datos = req.body;
-  const { nombre, email, password, rol } = datos;
-  
-  
-  //validar errores
+const postUsers = async (req, res)=>{
 
-  //obtengo los posibles errores que parten de la req la cual se crea a partir de los checks
-  // const errors = validationResult(req)
-  //valido si esta variable o array de errores no viene vacio
-  /*if (!errors.isEmpty()) {
-    return res.status(400).json(errors)
-  }
-  */
-  //---------------------------------------------------------
+  const datos= req.body
 
-  const usuario = new Usuario({ 
-    nombre, 
-    email, 
-    password, 
-    rol
-   });
+  const {nombre, email, password, rol}= datos
 
-  //verifico email
-  // const existeEmail = await Usuario.findOne({ email });
+  // const errors=validationResult(req);
+  // if (!errors.isEmpty()){
+  //     return res.status(400).json(errors)
+  // }
 
-  /*if (existeEmail) {
-    return res.status(400).json({
-      msg: "El correo ya existe",
-    });
-  }*/
+  const usuario = new Usuario({nombre, email, password, rol})
 
-  //------------------------------------------------------
-  //encriptar contraseña
-  const salt = bcrypt.genSaltSync();
-  usuario.password = bcrypt.hashSync(password, salt);
+  //verificar mail
+  // const existeEmail = await Usuario.findOne({email})
 
-  //guardo en la BD
+  // if (existeEmail){
+  //     return res.status(400).json({msg: "El correo ya existe"})
 
-  await usuario.save();
-  res.status(201).json({
-    msg: "usuario creado con éxito",
-    usuario,
-  });
+  // }
 
-  /*const {nombre, puesto} = req.body
-  if (nombre) {
-    res.json({
-      message: "Peticion POST desde controllers ",
-      nombre,
-      puesto
-    }); 
-  }else{
-    res.status(400).json({
-      message : "Falta el nombre"
-    })
-  }*/
-};
+const salt = bcrypt.genSaltSync()
+usuario.password = bcrypt.hashSync(password, salt)
 
-const putUsers = async (req = request, res = response) => {
-  const { id } = req.params;
 
-  const { password, _id, email, ...resto } = req.body;
 
-  //encriptar contraseña
-  const salt = bcrypt.genSaltSync();
-  resto.password = bcrypt.hashSync(password, salt);
+await usuario.save()
+      res.status(201).json({msg: "Usuario creado con exito!", usuario})
 
-  const usuario = await Usuario.findByIdAndUpdate(id, resto, { new: true });
-
-  res.status(200).json({
-    message: "usuario actualizado",
-    usuario,
-  });
-};
+}
 
 const deleteUsers = async (req = request, res = response) => {
   const { id } = req.params;
