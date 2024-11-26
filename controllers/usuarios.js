@@ -30,7 +30,7 @@ const getUser = async (req, res) => {
 const postUsers = async (req = request, res = response) => {
   const datos = req.body;
   const { nombre, email, password, rol } = datos;
-
+  
   
   //validar errores
 
