@@ -13,7 +13,7 @@ const emailExiste = async (email) => {
   const existeEmail = await Usuario.findOne({ email });
 
   if (existeEmail) {
-    throw new Error(`El correo ${email} ya existe`);
+    throw new Error(`Ya existe un usuario registrado con el correo ${email}`);
   }
 };
 

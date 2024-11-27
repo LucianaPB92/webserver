@@ -3,18 +3,11 @@ import Usuario from "../models/usuario.js";
 import bcrypt from "bcryptjs";
 // import { validationResult } from "express-validator";
 
-const getUsers = async (req = request, res = response) => {
-  //   res.send("Petición GET");
-  const { limite = 5, desde = 0 } = req.query;
-  const usuarios = await Usuario.find({ estado: true })
-    .limit(limite)
-    .skip(desde);
-  const total = await Usuario.countDocuments({ estado: true });
-  res.json({
-    total,
-    usuarios,
-  });
-};
+const getUsers = async (req=request, res=response)=>{
+  const usuarios=await Usuario.find({estado:true})
+  const total=await Usuario.countDocuments()
+  res.json({total, usuarios})
+}
 
 //obtener usuario por id
 const getUser = async (req, res) => {
