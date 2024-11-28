@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 // import { validationResult } from "express-validator";
 
 const getUsers = async (req=request, res=response)=>{
-  const usuarios=await Usuario.find({estado:true})
+  const usuarios=await Usuario.find()
   const total=await Usuario.countDocuments()
   res.json({total, usuarios})
 }
