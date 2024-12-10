@@ -24,9 +24,9 @@ const existeUsuarioPorId = async (id) => {
     throw new Error(`El id ${id} no existe`);
   }
   //si el usuario existe verifico su estado
-  if (!existeUsuario.estado) {
+  /*if (!existeUsuario.estado) {
     throw new Error(`El usuario ${existeUsuario.nombre} ya está inactivo`);
-  }
+  }*/
 };
 
 //validar Producto por id
