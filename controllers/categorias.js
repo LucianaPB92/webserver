@@ -43,8 +43,7 @@ const agregarCategoria = async (req, res) => {
 
   categoria.save();
 
-  res.status(200).
-    json({
+  res.status(200).json({
       msg: "Categoría guardada.",
       categoria,
     });
