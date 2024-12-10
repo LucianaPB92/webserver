@@ -3,11 +3,11 @@ import Categoria from "../models/categoria.js";
 
 const traerCategorias = async (req, res) => {
   //para paginacion
-  const { limite = 5, desde = 0 } = req.query;
+  // const { limite = 5, desde = 0 } = req.query;
   //hago la consulta
   const categorias = await Categoria.find({ estado: true })
-    .limit(limite)
-    .skyp(desde)
+    // .limit(limite)
+    // .skyp(desde)
     .populate("usuario", "nombre email rol");
     //para traer el total de documentos
   const total = await Categoria.countDocuments({ estado: true });
@@ -43,7 +43,7 @@ const agregarCategoria = async (req, res) => {
 
   categoria.save();
 
-  res.status(200),
+  res.status(200).
     json({
       msg: "Categoría guardada.",
       categoria,
