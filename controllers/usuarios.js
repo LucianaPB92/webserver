@@ -49,19 +49,48 @@ const postUsers = async (req, res) => {
 
 const putUsers = async (req, res) => {
   const { id } = req.params;
+  const { password, _id, email, ...resto } = req.body; // Excluimos campos no editables
 
-  const { password, _id, email, ...resto } = req.body;
+  try {
+    // Buscamos al usuario en la base de datos
+    const usuario = await Usuario.findById(id);
 
-  const salt = bcrypt.genSaltSync();
-  resto.password = bcrypt.hashSync(password, salt);
+    if (!usuario) {
+      return res.status(404).json({
+        message: `Usuario con id ${id} no encontrado`,
+      });
+    }
 
-  const usuario = await Usuario.findByIdAndUpdate(id, resto, { new: true });
+    // Si el usuario está inactivo, lo reactivamos
+    if (!usuario.estado) {
+      resto.estado = true; // Cambiamos el estado a activo
+    }
 
-  res.status(200).json({
-    message: "Usuario actualizado",
-    usuario,
-  });
+    // Si se envía una nueva contraseña, la encriptamos
+    if (password) {
+      const salt = bcrypt.genSaltSync();
+      resto.password = bcrypt.hashSync(password, salt);
+    }
+
+    // Actualizamos el usuario, incluyendo el estado si fue modificado
+    const usuarioActualizado = await Usuario.findByIdAndUpdate(
+      id,
+      { ...resto },
+      { new: true }
+    );
+
+    res.status(200).json({
+      message: "Usuario actualizado",
+      usuario: usuarioActualizado,
+    });
+  } catch (error) {
+    console.error("Error al actualizar el usuario:", error);
+    res.status(500).json({
+      message: "Hubo un error al actualizar el usuario",
+    });
+  }
 };
+
 
 const deleteUsers = async (req = request, res = response) => {
   const { id } = req.params;
