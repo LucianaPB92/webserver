@@ -4,9 +4,10 @@ import router from "../routes/usuarios.js";
 import routerAuth from "../routes/auth.js";
 import routerCat from "../routes/categorias.js";
 import routerProd from "../routes/productos.js";
+import routerCloudinary from "../routes/cloudinary.js";
 import routerSearch from "../routes/buscar.js";
 import { dbConnection } from "../database/config.js";
-import cloudinary from "../config/cloudinary.js";
+
 class Server {
   constructor() {
     this.app = express();
@@ -16,7 +17,7 @@ class Server {
     this.categoriaPath = "/api/categorias";
     this.productoPath = "/api/productos";
     this.buscarPath = "/api/buscar";
-    this.cloudinaryPath = "api/cloudinary"
+    this.cloudinaryPath = "/api/cloudinary"
     this.conectarDB();
     this.middlewares();
     this.routes();
