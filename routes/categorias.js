@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { body, check } from "express-validator";
+import { check } from "express-validator";
 import { validarJWT } from "../middlewares/validar-jwt.js";
 import { validarCampos } from "../middlewares/validar-campos.js";
 import { esAdminRole } from "../middlewares/validar-roles.js";
