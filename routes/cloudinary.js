@@ -16,7 +16,7 @@ const routerCloudinary = Router();
 
 routerCloudinary.get("/get-images", obtenerImagenes); // Obtener todas las imágenes
 routerCloudinary.post("/upload", upload.single("imagen"), subirImagen); // Subir imagen
-routerCloudinary.put("/update:public_id", upload.single("imagen"), actualizarImagen); // Actualizar imagen
-routerCloudinary.delete("/delete:public_id", eliminarImagen); // Eliminar imagen
+routerCloudinary.put("/update/:public_id", upload.single("imagen"), actualizarImagen); // Actualizar imagen
+routerCloudinary.delete("/delete/:public_id", eliminarImagen); // Eliminar imagen
 
 export default routerCloudinary

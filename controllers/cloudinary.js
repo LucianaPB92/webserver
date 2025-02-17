@@ -12,6 +12,7 @@ export const obtenerImagenes = async (req, res) => {
 // Subir una imagen
 export const subirImagen = async (req, res) => {
   try {
+    console.log("Archivo recibido en el backend:", req.file);
     if (!req.file) return res.status(400).json({ msg: "No se ha enviado una imagen" });
 
     // Subir la imagen a Cloudinary usando una promesa
