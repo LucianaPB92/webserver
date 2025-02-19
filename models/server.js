@@ -4,7 +4,6 @@ import router from "../routes/usuarios.js";
 import routerAuth from "../routes/auth.js";
 import routerCat from "../routes/categorias.js";
 import routerProd from "../routes/productos.js";
-import routerCloudinary from "../routes/cloudinary.js";
 import routerSearch from "../routes/buscar.js";
 import { dbConnection } from "../database/config.js";
 
@@ -17,7 +16,7 @@ class Server {
     this.categoriaPath = "/api/categorias";
     this.productoPath = "/api/productos";
     this.buscarPath = "/api/buscar";
-    this.cloudinaryPath = "/api/cloudinary"
+
     this.conectarDB();
     this.middlewares();
     this.routes();
@@ -33,7 +32,6 @@ class Server {
     this.app.use(this.categoriaPath,routerCat)
     this.app.use(this.productoPath, routerProd);
     this.app.use(this.buscarPath, routerSearch);
-    this.app.use(this.cloudinaryPath, routerCloudinary)
   }
   middlewares() {
     this.app.use(cors())
