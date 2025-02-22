@@ -71,6 +71,7 @@ const productoPost = async (req, res) => {
 
 const actualizarProducto = async (req, res) => {
   const { id } = req.params;
+  console.log("ID recibido en backend:", id);
   const { precio, categoria, descripcion, disponible, estado } = req.body;
   //guardamos id de usuario
   const usuario = req.usuario._id;
