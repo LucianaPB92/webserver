@@ -69,7 +69,7 @@ const productoPost = async (req, res) => {
 
 //actualizarProducto (validar nombre)-----------------------------------------
 
-const actualizarProducto = async (req, res) => {
+const actualizarProducto = async (req = request, res = response) => {
   const { id } = req.params;
   console.log("ID recibido en backend:", id);
   const { precio, categoria, descripcion, disponible, estado } = req.body;
@@ -108,7 +108,7 @@ const actualizarProducto = async (req, res) => {
 };
 
 //Borrar producto-----------------------------------------------------
-const borrarProducto = async (req, res) => {
+const borrarProducto = async (req = request, res = response) => {
   const { id } = req.params;
   //la actualizacion es cambiar el estado a false
   const productoBorrado = await Producto.findByIdAndUpdate(
