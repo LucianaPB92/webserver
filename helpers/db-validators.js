@@ -1,6 +1,6 @@
 import Role from "../models/rol.js";
 import Usuario from "../models/usuario.js";
-
+import Producto from "../models/producto.js"
 const rolValido = async (rol) => {
   //buscara el rol dentro de la coleccion
   const esRolValido = await Role.findOne({ rol });
