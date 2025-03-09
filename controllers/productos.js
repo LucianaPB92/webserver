@@ -122,6 +122,7 @@ const borrarProducto = async (req = request, res = response) => {
   res.status(200).json({
     msg: "El producto fue borrado",
     nombre,
+    productoBorrado
   });
 };
 //para borrar productos en un estado en false
