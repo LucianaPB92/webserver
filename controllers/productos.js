@@ -5,6 +5,7 @@ import Producto from "../models/producto.js";
 const obtenerProductos = async (req = request, res = response) => {
   // const { limite = 5, desde = 0 } = req.query;
   // const query = { estado: true };
+  const { estado } = req.query; // estado ya es booleano
    // Si estado está definido, filtra por estado; si no, trae todos los productos
    const query = estado !== undefined ? { estado } : {};
 
