@@ -4,7 +4,9 @@ import Producto from "../models/producto.js";
 //Get para traer todos los productos paginados--------------------
 const obtenerProductos = async (req = request, res = response) => {
   // const { limite = 5, desde = 0 } = req.query;
-  const query = { estado: true };
+  // const query = { estado: true };
+   // Si estado está definido, filtra por estado; si no, trae todos los productos
+   const query = estado !== undefined ? { estado } : {};
 
   const productos = await Producto.find(query)
     // .skip(Number(desde))
