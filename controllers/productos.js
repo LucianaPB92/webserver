@@ -91,6 +91,8 @@ const actualizarProducto = async (req = request, res = response) => {
   if (productoDB.estado === false) {
     nuevoEstado = true;
   }
+  //guardamos id de usuario
+  const usuario = req.usuario._id;
 
   //creamos la data
   let data = {
@@ -101,8 +103,6 @@ const actualizarProducto = async (req = request, res = response) => {
     usuario,
     estado:nuevoEstado,
   };
-  //guardamos id de usuario
-  const usuario = req.usuario._id;
   
   //si viene el nombre al momento de actualizar
   if (req.body.nombre) {
