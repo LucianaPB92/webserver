@@ -6,8 +6,8 @@ const obtenerProductos = async (req = request, res = response) => {
   // const { limite = 5, desde = 0 } = req.query;
   // const query = { estado: true };
   const { estado } = req.query; // estado ya es booleano
-   // Si estado está definido, filtra por estado; si no, trae todos los productos
-   const query = estado !== undefined ? { estado } : {};
+  // Si estado está definido, filtra por estado; si no, trae todos los productos
+  const query = estado !== undefined ? { estado } : {};
 
   const productos = await Producto.find(query)
     // .skip(Number(desde))
@@ -76,17 +76,34 @@ const actualizarProducto = async (req = request, res = response) => {
   const { id } = req.params;
   console.log("ID recibido en backend:", id);
   const { precio, categoria, descripcion, disponible, estado } = req.body;
-  //guardamos id de usuario
-  const usuario = req.usuario._id;
-//creamos la data
+
+  // Buscamos el producto en la base de datos
+  const productoDB = await Producto.findById(id);
+
+  if (!productoDB) {
+    return res.status(404).json({
+      message: `Producto con id ${id} no encontrado`,
+    });
+  }
+
+  // Si el estado viene en false, lo cambiamos a true
+  let nuevoEstado = estado;
+  if (productoDB.estado === false) {
+    nuevoEstado = true;
+  }
+
+  //creamos la data
   let data = {
     precio,
     descripcion,
     categoria,
     disponible,
     usuario,
-    estado,
+    estado:nuevoEstado,
   };
+  //guardamos id de usuario
+  const usuario = req.usuario._id;
+  
   //si viene el nombre al momento de actualizar
   if (req.body.nombre) {
     data.nombre = req.body.nombre.toUpperCase();
@@ -95,10 +112,11 @@ const actualizarProducto = async (req = request, res = response) => {
   if (req.body.stock) {
     data.stock = req.body.stock;
   }
-  //si viene la imagen 
+  //si viene la imagen
   if (req.body.img) {
     data.img = req.body.img;
   }
+
   //actualizamos el producto y lo devolvemos ya con lo actualizamos
   const producto = await Producto.findByIdAndUpdate(id, data, { new: true })
     .populate("categoria", "nombre")
@@ -125,7 +143,7 @@ const borrarProducto = async (req = request, res = response) => {
   res.status(200).json({
     msg: "El producto fue borrado",
     nombre,
-    productoBorrado
+    productoBorrado,
   });
 };
 //para borrar productos en un estado en false
