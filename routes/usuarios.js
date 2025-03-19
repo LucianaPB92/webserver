@@ -14,6 +14,7 @@ import {
   emailExiste,
   existeUsuarioPorId,
   rolValido,
+  verificarDominioEmail
 } from "../helpers/db-validators.js";
 //creamos una instancia de router
 const router = Router();
@@ -50,6 +51,7 @@ router.post(
     ),
     check("email", "El email no es valido").isEmail(),
     check("email").custom(emailExiste),
+    check("email").custom(verificarDominioEmail),
     check("rol").custom(rolValido),
     validarCampos,
   ],
