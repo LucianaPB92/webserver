@@ -12,7 +12,7 @@ import {
 
 const routerCat = Router();
 
-routerCat.get("/", [validarJWT], traerCategorias);
+routerCat.get("/", traerCategorias);
 
 routerCat.post(
   "/",
@@ -25,8 +25,8 @@ routerCat.post(
   agregarCategoria
 );
 
-routerCat.put("/:id", [], actualizarCategoria);
+routerCat.put("/:id", [validarJWT,esAdminRole,validarCampos], actualizarCategoria);
 
-routerCat.delete("/:id", [], borrarCategoria);
+routerCat.delete("/:id", [validarJWT,esAdminRole,validarCampos], borrarCategoria);
 
 export default routerCat;
