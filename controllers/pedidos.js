@@ -78,7 +78,9 @@ const actualizarPedido = async (req, res) => {
     if (!pedidoExistente) {
       return res.status(404).json({ msg: "Pedido no encontrado" });
     }
-
+    if (req.body.estado !== undefined) {
+      pedidoExistente.estado = req.body.estado; // Cambia el estado
+    }
     const pedidoActualizado = await Pedido.findByIdAndUpdate(id, req.body, {
       new: true,
     });
@@ -90,6 +92,7 @@ const actualizarPedido = async (req, res) => {
     res.status(500).json({ msg: "Error al actualizar el pedido" });
   }
 };
+
 
 // Eliminar un pedido
 const eliminarPedido = async (req, res) => {
