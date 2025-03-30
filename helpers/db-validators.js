@@ -21,17 +21,18 @@ const emailExiste = async (email) => {
 };
 
 const verificarDominioEmail = async (email) => {
-  const dominio = email.split("@")[1];
+  const dominio = email.split("@")[1]; // Extraer el dominio del email
 
   try {
     const registrosMX = await dns.resolveMx(dominio);
-    
+
+    // Si no hay registros MX, lanzar un error
     if (!registrosMX || registrosMX.length === 0) {
-      throw new Error("El dominio del email no existe o no puede recibir correos.");
+      return Promise.reject("El dominio del email no existe o no puede recibir correos.");
     }
   } catch (error) {
     console.error(`Error verificando dominio ${dominio}:`, error.message);
-    throw new Error("El dominio del email no existe o no puede recibir correos.");
+    return Promise.reject("El dominio del email no existe o no puede recibir correos.");
   }
 };
 
