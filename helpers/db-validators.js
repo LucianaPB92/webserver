@@ -2,6 +2,7 @@ import dns from "dns/promises";
 import Role from "../models/rol.js";
 import Usuario from "../models/usuario.js";
 import Producto from "../models/producto.js"
+
 const rolValido = async (rol) => {
   //buscara el rol dentro de la coleccion
   const esRolValido = await Role.findOne({ rol });
@@ -20,14 +21,16 @@ const emailExiste = async (email) => {
 };
 
 const verificarDominioEmail = async (email) => {
-  const dominio = email.split("@")[1]; // Extraer el dominio del email
+  const dominio = email.split("@")[1];
 
   try {
     const registrosMX = await dns.resolveMx(dominio);
+    
     if (!registrosMX || registrosMX.length === 0) {
       throw new Error("El dominio del email no existe o no puede recibir correos.");
     }
   } catch (error) {
+    console.error(`Error verificando dominio ${dominio}:`, error.message);
     throw new Error("El dominio del email no existe o no puede recibir correos.");
   }
 };
