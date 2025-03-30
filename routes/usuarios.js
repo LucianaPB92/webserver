@@ -14,19 +14,18 @@ import {
   emailExiste,
   existeUsuarioPorId,
   rolValido,
-  verificarDominioEmail
+  
 } from "../helpers/db-validators.js";
-//creamos una instancia de router
+
 const router = Router();
 
-//reemplazamos this.app por instancia router
+
 
 router.get("/",[
   validarJWT,
   esAdminRole
 ], getUsers);
 
-//para cargar el perfil del usuario
 router.get(
   "/:id",
   [
@@ -42,7 +41,6 @@ router.post(
   "/",
   [
     check("nombre", "El nombre es obligatorio").notEmpty(),
-    // check("password","La contraseña debe tener minimo 6 caracteres").isLength({min:6,max:16})
     check(
       "password",
       "La contraseña debe tener mínimo 8 caracteres,mayusculas,minusculas,numeros y simbolos especiales"
@@ -51,7 +49,6 @@ router.post(
     ),
     check("email", "El email no es valido").isEmail(),
     check("email").custom(emailExiste),
-    check("email").custom(verificarDominioEmail),
     check("rol").custom(rolValido),
     validarCampos,
   ],
@@ -64,7 +61,6 @@ router.put(
     validarJWT,
     check("id", "No es un id válido").isMongoId(),
     check('id').custom(existeUsuarioPorId),
-    // check("rol").custom(rolValido),
     validarCampos
   ],
   putUsers
