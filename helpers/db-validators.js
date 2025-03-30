@@ -1,4 +1,3 @@
-import dns from "dns/promises";
 import Role from "../models/rol.js";
 import Usuario from "../models/usuario.js";
 import Producto from "../models/producto.js"
@@ -20,22 +19,6 @@ const emailExiste = async (email) => {
   }
 };
 
-const verificarDominioEmail = async (email) => {
-  const dominio = email.split("@")[1]; // Extraer el dominio del email
-
-  try {
-    const registrosMX = await dns.resolveMx(dominio);
-
-    // Si no hay registros MX, lanzar un error
-    if (!registrosMX || registrosMX.length === 0) {
-      return Promise.reject("El dominio del email no existe o no puede recibir correos.");
-    }
-  } catch (error) {
-    console.error(`Error verificando dominio ${dominio}:`, error.message);
-    return Promise.reject("El dominio del email no existe o no puede recibir correos.");
-  }
-};
-
 const existeUsuarioPorId = async (id) => {
   const existeUsuario = await Usuario.findById(id);
   if (!existeUsuario) {
@@ -54,4 +37,4 @@ const productoExiste = async (id) => {
     throw new Error(`El id ${id} no existe en la BD`);
   }
 };
-export { rolValido, emailExiste, existeUsuarioPorId, productoExiste,verificarDominioEmail};
+export { rolValido, emailExiste, existeUsuarioPorId, productoExiste};
