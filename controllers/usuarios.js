@@ -25,11 +25,6 @@ const postUsers = async (req, res) => {
 
   const { nombre, email, password, rol } = datos;
 
-  // const errors=validationResult(req);
-  // if (!errors.isEmpty()){
-  //     return res.status(400).json(errors)
-  // }
-
   const usuario = new Usuario({ nombre, email, password, rol });
 
   //verificar mail
