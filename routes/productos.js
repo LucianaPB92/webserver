@@ -17,7 +17,7 @@ import {
 
 const routerProd = Router();
 
-routerProd.get("/", [validarJWT], obtenerProductos);
+routerProd.get("/", obtenerProductos);
 
 //Listar producto por id
 routerProd.get(
