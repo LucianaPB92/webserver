@@ -28,6 +28,7 @@ const obtenerPedidoPorId = async (req, res) => {
     }
     res.json({ pedido });
   } catch (error) {
+    console.error("Error al obtener el pedido:", error);
     res.status(500).json({ msg: "Error al obtener el pedido" });
   }
 };
@@ -92,7 +93,6 @@ const actualizarPedido = async (req, res) => {
     res.status(500).json({ msg: "Error al actualizar el pedido" });
   }
 };
-
 
 // Eliminar un pedido
 const eliminarPedido = async (req, res) => {
