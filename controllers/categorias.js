@@ -48,11 +48,11 @@ const agregarCategoria = async (req, res) => {
       categoria,
     });
 };
-//controlador de la ruta de put
+
 const actualizarCategoria = (req, res) => {
 
 };
-//controlador de la ruta de delete
+
 const borrarCategoria = (req, res) => {
   
 };

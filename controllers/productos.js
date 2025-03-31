@@ -128,7 +128,6 @@ const actualizarProducto = async (req = request, res = response) => {
   });
 };
 
-//Borrar producto-----------------------------------------------------
 const borrarProducto = async (req = request, res = response) => {
   const { id } = req.params;
   //la actualizacion es cambiar el estado a false
